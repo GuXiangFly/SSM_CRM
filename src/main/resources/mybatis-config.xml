@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!--开启驼峰命名-->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+
+	<!--启用类型别名
+		这个别名定义后，别名等于类名不区分大小写 但是一般按照java命名规则来命名
+	-->
+	<typeAliases>
+		<!--type 是类的全路径类名
+			alias是类 别名-->
+		<package name="com.guxiang.bean"/>
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!--分页参数合理化  -->
+			<property name="reasonable" value="true"/>
+		</plugin>
+	</plugins>
+
+</configuration>
+
