@@ -2,7 +2,9 @@ package com.guxiang.service;
 
 import com.guxiang.bean.Employee;
 import com.guxiang.dao.EmployeeMapper;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +26,6 @@ public class EmployeeService {
      */
     public List<Employee> getAll() {
         return employeeMapper.selectByExampleWithDept(null);
+
     }
 }
