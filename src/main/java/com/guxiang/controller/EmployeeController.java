@@ -2,8 +2,8 @@ package com.guxiang.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.guxiang.bean.Department;
 import com.guxiang.bean.Employee;
+import com.guxiang.bean.Msg;
 import com.guxiang.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +54,7 @@ public class EmployeeController {
 
      @RequestMapping("/emps")
      @ResponseBody
-    public List<Department> getEmpsWithJson(@RequestParam(value = "pn",defaultValue = "1") Integer pn, Model model){
+    public Msg getEmpsWithJson(@RequestParam(value = "pn",defaultValue = "1") Integer pn, Model model){
         //使用pagehelper插件
         PageHelper.startPage(pn,5);
 
@@ -64,12 +63,6 @@ public class EmployeeController {
         //传入要连续显示的页数
         PageInfo page = new PageInfo(emps,5);
 
-        List<Department> departments = new ArrayList<Department>();
-         departments.add(new Department(1,"市场部"));
-         departments.add(new Department(1,"市场部"));
-         departments.add(new Department(1,"市场部"));
-         departments.add(new Department(1,"市场部"));
-
-        return departments;
+        return Msg.success().add("pageInfo",page);
     }
 }

@@ -12,6 +12,21 @@
       <result column="dept_name" property="deptName"/>
     </association>
   </resultMap>
+
+  <resultMap id="WithDeptResultMap" type="com.guxiang.bean.Employee">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="b_id" jdbcType="INTEGER" property="bId" />
+    <!-- 指定联合查询出的部门字段的封装 -->
+    <association property="department" javaType="com.guxiang.bean.Department">
+      <id column="dept_id" property="deptId"/>
+      <result column="dept_name" property="deptName"/>
+    </association>
+  </resultMap>
+
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -75,7 +90,7 @@
   </sql>
 
   <sql id="Withdept_Column_List">
-    emp_id, emp_name, gender, email, b_id,dept_id,dept_name
+    e.emp_id, e.emp_name, e.gender, e.email, e.b_id,d.dept_id,d.dept_name
   </sql>
   <select id="selectByExample" parameterType="com.guxiang.bean.EmployeeExample" resultMap="BaseResultMap">
     select
@@ -156,7 +171,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="selectByExampleWithDept" resultType="com.guxiang.bean.Employee">
+    <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">
       select
       <if test="distinct">
         distinct
@@ -171,7 +186,7 @@
         order by ${orderByClause}
       </if>
     </select>
-  <select id="selectByPrimaryKeyWithDept" resultType="com.guxiang.bean.Employee">
+  <select id="selectByPrimaryKeyWithDept" resultMap="WithDeptResultMap">
     select
     <include refid="Withdept_Column_List" />
     FROM tb1_emp e
